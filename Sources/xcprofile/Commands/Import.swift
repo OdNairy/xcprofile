@@ -10,8 +10,7 @@ struct ImportCommand: ParsableCommand {
     
     func run() throws {
         print("ProfilePath: \(profilePath)")
-        
-        let profileURL = URL(fileURLWithPath: profilePath)
+        let profileURL = URL(fileURLWithTildePath: profilePath)
         guard profileURL.lastPathComponent.contains(".developerprofile") else {
             throw ExitCode(1)
         }

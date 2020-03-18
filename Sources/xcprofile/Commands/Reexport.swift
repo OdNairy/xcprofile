@@ -11,7 +11,7 @@ struct ReExportCommand: ParsableCommand {
     static var configuration = CommandConfiguration(commandName: "reexport")
     
     func run() throws {
-        let profileURL = URL(fileURLWithPath: profilePath)
+        let profileURL = URL(fileURLWithTildePath: profilePath)
         let profile = try DeveloperEncryptedProfile(url: profileURL).decompress(password: password)
         
         try profile.reexportKeychain()
