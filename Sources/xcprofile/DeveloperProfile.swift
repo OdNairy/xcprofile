@@ -107,8 +107,11 @@ public class DeveloperDecryptedProfile {
             let copyStatus = SecKeychainItemCreateCopy(keychainItem, targetKeychain, secAccess, &copiedKeychainItem)
             
             if copyStatus != errSecSuccess {
-                let message = SecCopyErrorMessageString(copyStatus, nil)
-                print(message ?? "No message for Security error code \(copyStatus)")
+                let message = SecCopyErrorMessageString(copyStatus, nil) as String?
+                let errorMessage = message ?? "Security error code \(copyStatus)"
+                
+                logger.debug(.init(stringLiteral: errorMessage),
+                             metadata: ["Operation": .string("importTokens"), "key": .stringConvertible(String(describing: keychainItem))])
             }
         }
     }

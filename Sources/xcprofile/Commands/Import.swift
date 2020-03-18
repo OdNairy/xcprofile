@@ -9,15 +9,16 @@ struct ImportCommand: ParsableCommand {
     var profilePath: String
     
     func run() throws {
-        print("ProfilePath: \(profilePath)")
         let profileURL = URL(fileURLWithTildePath: profilePath)
+        logger.trace("ProfileURL: \(profileURL.path)", metadata: ["input path":.string(profilePath)])
+        
         guard profileURL.lastPathComponent.contains(".developerprofile") else {
-            throw ExitCode(1)
+            throw ExitCode.failure
         }
         
         let encryptedProfile = DeveloperEncryptedProfile(url: profileURL)
         let profile = try encryptedProfile.decompress(password: password)
-        print("Decrypted profile at \(profile.outputURL.path)")
+        logger.trace("Decrypted profile at \(profile.outputURL.path)")
         
         try profile.import()
     }
