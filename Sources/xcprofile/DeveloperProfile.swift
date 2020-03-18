@@ -23,7 +23,7 @@ public class DeveloperEncryptedProfile {
         try decipher(inputURL: keychainURL, output: keychainURL, password: password)
         try decipher(inputURL: accountPlistURL, output: accountPlistURL, password: password)
         
-        return DeveloperDecryptedProfile(inputURL: inputURL, outputURL: output, password: password)
+        return try DeveloperDecryptedProfile(inputURL: inputURL, outputURL: output, password: password)
     }
 }
 
@@ -40,11 +40,11 @@ public class DeveloperDecryptedProfile {
     
     var targetKeychain: SecKeychain
 
-    fileprivate init(inputURL: URL, outputURL: URL, password: String) {
+    fileprivate init(inputURL: URL, outputURL: URL, password: String) throws {
         self.inputURL = inputURL
         self.outputURL = outputURL
         self.password = password
-        targetKeychain = userDefaultKeychain()!
+        targetKeychain = try userDefaultKeychain()
     }
     
     public func compress(password: String) throws -> DeveloperEncryptedProfile {

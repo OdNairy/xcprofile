@@ -12,3 +12,8 @@ struct SecurityError: Error, CustomDebugStringConvertible {
         return customDebugDescription
     }
 }
+
+enum KeychainError: Error {
+    case noUserKeychainFound
+    case cannotConvertKeychainList
+}
