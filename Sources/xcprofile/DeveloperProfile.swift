@@ -267,8 +267,9 @@ public class DeveloperDecryptedProfile {
         if let xcodeAppleID = xcodeDefaults.value(forKey: xcodeDefaultsAppleIDsKeys) as? NSDictionary {
             originXcodeAppleIDLists = xcodeAppleID
         } else {
-            originXcodeAppleIDLists = NSDictionary()
-            xcodeDefaults.setValue(originXcodeAppleIDLists, forKey: xcodeDefaultsAppleIDsKeys)
+            originXcodeAppleIDLists = NSMutableDictionary()
+            originXcodeAppleIDLists.setValue(NSArray(), forKey: xcodeDefaultsIDEProductionSubkey)
+            xcodeDefaults.setValue(originXcodeAppleIDLists.copy(), forKey: xcodeDefaultsAppleIDsKeys)
         }
         let modifiedXcodeAppleIDLists = originXcodeAppleIDLists.mutableCopy() as! NSMutableDictionary
         
