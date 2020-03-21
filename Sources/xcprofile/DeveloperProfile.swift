@@ -317,7 +317,7 @@ public class DeveloperDecryptedProfile {
     
     deinit {
         do {
-            try FileManager.default.removeItem(at: outputURL)
+//            try FileManager.default.removeItem(at: outputURL)
         } catch {
             logger.log(level: .error, "Failed to remove output folder at \(outputURL.path)")
         }
