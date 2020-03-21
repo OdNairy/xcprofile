@@ -46,9 +46,11 @@ func cipher(data: Data, password: String) -> Data? {
 @discardableResult
 func decipher(inputURL: URL, output: URL, password: String) throws -> Bool {
     let inputData = try Data(contentsOf: inputURL)
+    logger.trace("InputData length: \(inputData.count)", metadata: ["inputURL": .string(inputURL.path)])
     guard let outputData = decipher(data: inputData, password: password) else {
         return false
     }
+    logger.trace("OutputData length: \(outputData.count)", metadata: ["outputURL": .string(output.path)])
     try outputData.write(to: output, options: .atomic)
     return true
 }
