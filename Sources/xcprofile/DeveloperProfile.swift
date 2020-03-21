@@ -263,7 +263,13 @@ public class DeveloperDecryptedProfile {
         //      3. Populate mutable array with new records
         //      4. Set updated array to mutable Dictionary at key 'IDE.Prod'
         //      5. Set updated dictionary back to UserDefaults at key 'DVTDeveloperAccountManagerAppleIDLists'
-        let originXcodeAppleIDLists = xcodeDefaults.value(forKey: xcodeDefaultsAppleIDsKeys) as! NSDictionary
+        let originXcodeAppleIDLists: NSDictionary
+        if let xcodeAppleID = xcodeDefaults.value(forKey: xcodeDefaultsAppleIDsKeys) as? NSDictionary {
+            originXcodeAppleIDLists = xcodeAppleID
+        } else {
+            originXcodeAppleIDLists = NSDictionary()
+            xcodeDefaults.setValue(originXcodeAppleIDLists, forKey: xcodeDefaultsAppleIDsKeys)
+        }
         let modifiedXcodeAppleIDLists = originXcodeAppleIDLists.mutableCopy() as! NSMutableDictionary
         
         let xcodeAppleIDs = modifiedXcodeAppleIDLists[xcodeDefaultsIDEProductionSubkey] as! [[String:Any]]
